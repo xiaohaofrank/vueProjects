@@ -8,10 +8,15 @@
     <script src="js/vue.js"></script>
     <script>
         window.onload = function() {
+            //开发环境转生产环境，对dev-tools的配置
+            //不允许调试
+            Vue.config.devtools = true;  
+            Vue.config.productionTip = true;
             new Vue({
-                el:'itany',
-                data:{
-                    msg:'hello world'
+                el:'#itany',//指定关联的选择器
+                data:{//存储数据
+                    msg:'hello world',
+                    name:'tom'
                 }
             })
         }
