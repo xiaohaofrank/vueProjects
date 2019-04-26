@@ -16,7 +16,30 @@
                         id:'1',
                         name:'zhy',
                         age:19
+                    },
+                    arr2:[34,33,44,234,444,'james'],
+                    arr3:[{
+                        id:'1456456',
+                        name:'jacky',
+                        age:19
+                    },{
+                        id:'34564564',
+                        name:'tim',
+                        age:18
+                    },{
+                        id:'1456456456',
+                        name:'catzz',
+                        age:19
                     }
+                    ,{
+                        id:'8456456456',
+                        name:'cat',
+                        age:11
+                    },{
+                        id:'24564564564',
+                        name:'bob',
+                        age:17
+                    }]
                 }
             })
         }
@@ -26,7 +49,15 @@
     <div id="itany" >
        {{arr}}
        <ul>
-            <!-- <li v-for="item in usr">{{item}}</li> -->
+            <!-- 对于对象，只显示value,不显示key -->
+            <!-- <li v-for="v in usr">{{v}}</li> -->
+            <!-- 对于对象，即显示value，也显示key，还能显示顺序 -->
+            <!-- <li v-for="(v,k,index) in usr">第{{index}}个：{{k}}:{{v}}</li> -->
+            <!-- 对于数组 -->
+            <!-- <li v-for="(item,index) in arr2">数组中的第{{index}}个数字：{{item}}</li> -->
+            <!-- 对于数组,便于浏览器不重复渲染，而是插入式渲染。 -->   
+            <!-- <li v-for="(item,index) in arr3" :key='item.id'>数组中的第{{index}}个数字：{{item.name}}今年{{item.age}}岁</li> -->
+            
         </ul>
     </div>
 </body>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常用指令:v-on</title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el:'#itany',
+                data:{
+                    arr:[23,33,44,55],
+                    counter:0
+                },
+                methods:{
+                    show:function(){
+                        console.log('调用了show方法')
+                    },
+                    add(){
+                        this.arr.push(666);
+                    },
+                    delete(){
+                        this.arr.pop()
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div id="itany" >
+       <button v-on:click="show">点我</button>
+       <button v-on:click="add">直接处理数组，添加一个元素</button>
+       <button v-on:click="counter += 1">直接处理数字:{{counter}}</button>
+       <p>
+            {{counter}}
+       </p>
+       <br>
+       {{arr}}
+    </div>
+</body>
+</html>
