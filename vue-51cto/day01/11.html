@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>class和style属性</title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el:'#itany',
+                data:{
+                    bb:'aa',
+                    dd:'cc',
+                    flag:true,
+                    num:3,
+                    hello:{
+                        aa:true,
+                        cc:true
+                    },
+                    xx:{
+                        color:'blue',fontSize:'60px'
+                    },
+                    yy:{
+                        background:'red'
+                    }
+                },
+                methods:{
+                  
+                }
+            })
+        }
+    </script>
+    <style>
+        .aa{
+            color:red;
+            font-size:20px;
+        }
+        .cc{
+            background: #ccc;
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="itany" >
+        <!-- 变量值 -->
+       <p class="aa">北京烤鸭</p>
+       <!-- 数组 -->
+       <p :class="[bb,dd]">北京烤鸭</p>
+       <!-- 对象 -->
+       <p :class="{aa:false,cc:flag}">北京烤鸭</p>
+       <p :class="{aa:num>0}">北京烤鸭</p>
+       <p :class="hello">北京de烤鸭</p>
+       <p :style="xx">itany</p>   
+       <p :style="[xx,yy]">itany</p>   
+    </div>
+</body>
+</html>

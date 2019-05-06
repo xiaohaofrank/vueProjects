@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模板</title>
+    <script src="js/vue.js"></script>
+    <script>
+        window.onload = function () {
+            new Vue({
+                el:'#itany',
+                data:{
+                   msg:"welcome to itany"
+                },
+                created:function(){
+                    alert(1111);
+                }
+            })
+        }
+    </script>
+    
+    </style>
+</head>
+<body>
+    <div id="itany" >
+        <h3>{{msg}}</h3>
+        <!-- 双向绑定 -->
+        <input type="text" v-model = 'msg'>
+        <h3 >aaa<span v-cloak>{{msg}}</span></h3>
+        <!-- 单项绑定 -->
+        <h3 v-text='msg'></h3>
+        <!-- v-html能识别html标签 -->
+        <h3 v-html='msg'></h3>
+        <h3 v-once>{{msg}}</h3>
+        <h3 v-pre>{{msg}}</h3>
+    </div>
+</body>
+</html>
