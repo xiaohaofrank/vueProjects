@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>360搜索列表</title>
+    <style>
+        .current{
+            background-color:#ccc
+        }
+    </style>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/vue-resource.min.js"></script>
+    <script>
+        window.onload = function(){
+            new Vue({
+                el:'#itany',
+                data:{
+                    keyword:'',
+                    myData:[],
+                    now:-1
+                },
+                methods:{
+                    getData(e){
+                        //如果按方向键上和下则不发请求
+                        console.log(e);
+                        if(e.keyCode == 38 || e.keyCode == 40){
+                            return;
+                        }
+                        this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                            params:{
+                                word:this.keyword
+                            }
+                        }).then(resp =>{
+                            console.log(resp.data.s);
+                            this.myData = resp.data.s;
+                        })
+                    },
+                    changeDown(){
+                        this.now++;
+                        this.keyword = this.myData[this.now];
+                        console.log(this.keyword);
+                        if(this.now == this.myData.length){
+                            this.now = -1;
+                        }
+                    },
+                    changeUp(){
+                        this.now--;
+                        this.keyword = this.myData[this.now];
+                        console.log(this.keyword);
+                        if(this.now == -2){
+                            this.now = this.myData.length-1;
+                        }
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div id="itany">
+        <input type="text" name="" id="" v-model="keyword" @keyup="getData($event)" @keydown.down="changeDown" @keydown.up.prevent="changeUp">
+        <ul>
+            <li v-for="(value,index) in myData" :class="{current:index==now}">
+                {{value}}
+            </li>
+        </ul>
+        <p v-show="myData.length == 0">
+            暂无数据....
+        </p>
+    </div>
+</body>
+</html>

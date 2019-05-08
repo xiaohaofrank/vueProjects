@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>发送ajax请求</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <script src="js/vue-resource.min.js"></script>
+    <script>
+        window.onload = function(){
+            new Vue({
+                el:'#itany',
+                data:{
+                    user:{},
+                    uid:''
+                },
+                methods:{
+                    send(){
+                        axios({
+                            methods:'get',
+                            url:'user.json'
+                        }).then(function(resp){
+                            console.log(resp.data);
+                        }).catch(resp =>{
+                            console.log(resp);
+                            // console.log("请求失败"+resp.status +',' +resp.statusText);
+                        })
+                    },
+                    sendGet(){
+                        // axios.get('server.php?name=tom&age=23')
+                        axios.get('server.php',{
+                            params:{
+                                name:'tom',
+                                age:23
+                            }
+                        })
+                        .then(resp => {
+                            console.log(resp.data);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    },
+                    sendPost(){
+                        // axios.post('server.php',{
+                        //     name:'alice',
+                        //     age:19
+                        // })
+                        //post请求在url中不显示参数，而get请求在url中显示参数。
+                        // axios.post('server.php','name=alice&age=20')
+                        axios.post('server.php',this.user,{
+                            transformRequest: [function (data) {
+                                let params = '';
+                                for(let index in data){
+                                    params += index+'='+data[index]+'&';
+                                }
+                                return params;
+                            }]
+                        })
+                        .then(resp => {
+                            console.log(resp.data);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    },
+                    getUserById(uid){
+                        axios.get(`https://api.github.com/users/${uid}`)
+                        .then(resp => {
+                            console.log(resp.data);
+                            this.user = resp.data;
+                            // this.user.push(resp.data);
+                            console.log(this.user);
+                        }).catch(err => {
+                            
+                        })
+                    },
+                    sendJSONP(){
+                        // https://sug.so.360.cn/suggest?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word&word=a&mid=f6751d6312377f7bac6d0bd1c4f7cf16&huid=11DEXcr4YHqIAlBKRN7PJDRbg16LS98WNMI%2BQvyT7jXHA%3D
+                        this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                            params:{
+                                word:'a'
+                            }
+                        }).then(resp =>{
+                            console.log(resp.data.s);
+                        })
+                    },
+                    baiduSendJSONP(){
+                        //https://www.baidu.com/sugrec?pre=1&p=3&ie=utf-8&json=1&prod=pc&from=wise_web&sugsid=28884,1460,28981,21091,28767,28722,28964,28835,28585,20718&wd=c&csor=1&pwd=b&cb=jQuery110202677402113206069_1557211780107&_=1557211780120
+                        this.$http.jsonp('https://www.baidu.com/sugrec',{
+                            params:{
+                                wd:'a'
+                            },
+                            jsonp:'cb'//百度使用的jsonp参数名为cb，所以需要修改
+                        }).then(resp =>{
+                            console.log(resp.data);
+                        }).catch(err => {
+                            console.log(resp.data);
+                        })
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div id="itany">
+        <button @click = "send">发送ajax请求</button>
+        <button @click = "sendGet">发送get请求</button>
+        <button @click = "sendPost">发送post请求</button>
+        <hr>
+        Github id : <input type="text" name="" id="" v-model = 'uid'>
+        <button @click = "getUserById(uid)">发送post请求</button>
+        <br>
+        姓名：{{user.id}} <br>
+        头像：<img :src="user.avatar_url" alt="">
+        <br>
+        <button @click = "sendJSONP">向360搜索发送JSONP请求</button>
+        <button @click = "baiduSendJSONP">向百度搜索发送JSONP请求</button>
+
+    </div>
+</body>
+</html>
