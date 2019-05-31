@@ -88,7 +88,7 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: '这是的调查问卷项目'
+      msg: '这是的调查问卷项目，xiaohaofrank到此一游。'
     }
   }
 }
